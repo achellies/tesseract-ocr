@@ -403,6 +403,14 @@ class TESSDLL_API TessBaseAPI {
                    const char* retry_config, int timeout_millisec,
                    STRING* text_out);
 
+  /**
+	wrapper for processpages
+  */
+  char* ProcessPagesWrapper(const char* image) ;
+
+  char* ProcessPagesBuffer(unsigned int buffer);
+
+
   // Get an iterator to the results of LayoutAnalysis and/or Recognize.
   // The returned iterator must be deleted after use.
   // WARNING! This class points to data held within the TessBaseAPI class, and

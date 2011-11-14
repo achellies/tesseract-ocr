@@ -3373,6 +3373,66 @@ SWIG_AsVal_bool (PyObject *obj, bool *val)
 
 
 SWIGINTERN int
+SWIG_AsVal_unsigned_SS_long (PyObject *obj, unsigned long *val) 
+{
+  if (PyInt_Check(obj)) {
+    long v = PyInt_AsLong(obj);
+    if (v >= 0) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      return SWIG_OverflowError;
+    }
+  } else if (PyLong_Check(obj)) {
+    unsigned long v = PyLong_AsUnsignedLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_OK;
+    } else {
+      PyErr_Clear();
+    }
+  }
+#ifdef SWIG_PYTHON_CAST_MODE
+  {
+    int dispatch = 0;
+    unsigned long v = PyLong_AsUnsignedLong(obj);
+    if (!PyErr_Occurred()) {
+      if (val) *val = v;
+      return SWIG_AddCast(SWIG_OK);
+    } else {
+      PyErr_Clear();
+    }
+    if (!dispatch) {
+      double d;
+      int res = SWIG_AddCast(SWIG_AsVal_double (obj,&d));
+      if (SWIG_IsOK(res) && SWIG_CanCastAsInteger(&d, 0, ULONG_MAX)) {
+	if (val) *val = (unsigned long)(d);
+	return res;
+      }
+    }
+  }
+#endif
+  return SWIG_TypeError;
+}
+
+
+SWIGINTERN int
+SWIG_AsVal_unsigned_SS_int (PyObject * obj, unsigned int *val)
+{
+  unsigned long v;
+  int res = SWIG_AsVal_unsigned_SS_long (obj, &v);
+  if (SWIG_IsOK(res)) {
+    if ((v > UINT_MAX)) {
+      return SWIG_OverflowError;
+    } else {
+      if (val) *val = static_cast< unsigned int >(v);
+    }
+  }  
+  return res;
+}
+
+
+SWIGINTERN int
 SWIG_AsVal_float (PyObject * obj, float *val)
 {
   double v;
@@ -5750,6 +5810,71 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_TessBaseAPI_ProcessPagesWrapper(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  tesseract::TessBaseAPI *arg1 = (tesseract::TessBaseAPI *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 ;
+  char *buf2 = 0 ;
+  int alloc2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:TessBaseAPI_ProcessPagesWrapper",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_tesseract__TessBaseAPI, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TessBaseAPI_ProcessPagesWrapper" "', argument " "1"" of type '" "tesseract::TessBaseAPI *""'"); 
+  }
+  arg1 = reinterpret_cast< tesseract::TessBaseAPI * >(argp1);
+  res2 = SWIG_AsCharPtrAndSize(obj1, &buf2, NULL, &alloc2);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "TessBaseAPI_ProcessPagesWrapper" "', argument " "2"" of type '" "char const *""'");
+  }
+  arg2 = reinterpret_cast< char * >(buf2);
+  result = (char *)(arg1)->ProcessPagesWrapper((char const *)arg2);
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return resultobj;
+fail:
+  if (alloc2 == SWIG_NEWOBJ) delete[] buf2;
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_TessBaseAPI_ProcessPagesBuffer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  tesseract::TessBaseAPI *arg1 = (tesseract::TessBaseAPI *) 0 ;
+  unsigned int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  unsigned int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:TessBaseAPI_ProcessPagesBuffer",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_tesseract__TessBaseAPI, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TessBaseAPI_ProcessPagesBuffer" "', argument " "1"" of type '" "tesseract::TessBaseAPI *""'"); 
+  }
+  arg1 = reinterpret_cast< tesseract::TessBaseAPI * >(argp1);
+  ecode2 = SWIG_AsVal_unsigned_SS_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "TessBaseAPI_ProcessPagesBuffer" "', argument " "2"" of type '" "unsigned int""'");
+  } 
+  arg2 = static_cast< unsigned int >(val2);
+  result = (char *)(arg1)->ProcessPagesBuffer(arg2);
+  resultobj = SWIG_FromCharPtr((const char *)result);
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_TessBaseAPI_GetIterator(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   tesseract::TessBaseAPI *arg1 = (tesseract::TessBaseAPI *) 0 ;
@@ -6849,6 +6974,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"TessBaseAPI_RecognizeForChopTest", _wrap_TessBaseAPI_RecognizeForChopTest, METH_VARARGS, NULL},
 	 { (char *)"TessBaseAPI_ProcessPages", _wrap_TessBaseAPI_ProcessPages, METH_VARARGS, NULL},
 	 { (char *)"TessBaseAPI_ProcessPage", _wrap_TessBaseAPI_ProcessPage, METH_VARARGS, NULL},
+	 { (char *)"TessBaseAPI_ProcessPagesWrapper", _wrap_TessBaseAPI_ProcessPagesWrapper, METH_VARARGS, NULL},
+	 { (char *)"TessBaseAPI_ProcessPagesBuffer", _wrap_TessBaseAPI_ProcessPagesBuffer, METH_VARARGS, NULL},
 	 { (char *)"TessBaseAPI_GetIterator", _wrap_TessBaseAPI_GetIterator, METH_VARARGS, NULL},
 	 { (char *)"TessBaseAPI_GetUTF8Text", _wrap_TessBaseAPI_GetUTF8Text, METH_VARARGS, NULL},
 	 { (char *)"TessBaseAPI_GetHOCRText", _wrap_TessBaseAPI_GetHOCRText, METH_VARARGS, NULL},

@@ -40,7 +40,7 @@ bin.dbg
 DLL_Debug
 LIB_Debug
 [Dd]ebug
-
+DLL_Release
 #Subversion files
 .svn
 

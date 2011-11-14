@@ -201,6 +201,8 @@ class TessBaseAPI(_object):
     def RecognizeForChopTest(self, *args): return _tesseract.TessBaseAPI_RecognizeForChopTest(self, *args)
     def ProcessPages(self, *args): return _tesseract.TessBaseAPI_ProcessPages(self, *args)
     def ProcessPage(self, *args): return _tesseract.TessBaseAPI_ProcessPage(self, *args)
+    def ProcessPagesWrapper(self, *args): return _tesseract.TessBaseAPI_ProcessPagesWrapper(self, *args)
+    def ProcessPagesBuffer(self, *args): return _tesseract.TessBaseAPI_ProcessPagesBuffer(self, *args)
     def GetIterator(self): return _tesseract.TessBaseAPI_GetIterator(self)
     def GetUTF8Text(self): return _tesseract.TessBaseAPI_GetUTF8Text(self)
     def GetHOCRText(self, *args): return _tesseract.TessBaseAPI_GetHOCRText(self, *args)

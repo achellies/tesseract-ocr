@@ -767,6 +767,31 @@ bool TessBaseAPI::ProcessPage(Pix* pix, int page_index, const char* filename,
   return false;
 }
 
+char* TessBaseAPI::ProcessPagesWrapper(const char* image) {
+        //printf("ok->%s",text_out);
+        STRING mstr; 
+        ProcessPages(image, NULL, 0, &mstr);
+        const char *tmpStr=mstr.string();
+        char *retStr = new char[strlen(tmpStr) + 1];
+        strcpy (retStr,tmpStr);
+        return retStr;
+ }   
+
+char* TessBaseAPI::ProcessPagesBuffer(unsigned int buffer) {   
+        Pix *pix;
+        int page=0;
+        STRING mstr;
+        
+        pix = (Pix *) buffer ;
+        ProcessPage(pix, page, NULL, NULL, 0, &mstr);
+        const char *tmpStr=mstr.string();
+        char *retStr = new char[strlen(tmpStr) + 1];
+        strcpy (retStr,tmpStr);
+        //printf("ok->%s",retStr);
+
+        return retStr;
+ }
+
 // Get an iterator to the results of LayoutAnalysis and/or Recognize.
 // The returned iterator must be deleted after use.
 // WARNING! This class points to data held within the TessBaseAPI class, and
