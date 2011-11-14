@@ -1,0 +1,2 @@
+swig -c++ -python -I. -Iinclude/tesseract/ -Iinclude -Iinclude/leptonica tesseract.i
+

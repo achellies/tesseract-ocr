@@ -50,3 +50,6 @@ LIB_Debug
 #NuGet
 packages/
 
+#python files
+*.pyc
+*.pyd
